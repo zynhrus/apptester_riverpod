@@ -2,6 +2,7 @@ import 'package:app_riverpod/core/state/base_state.dart';
 import 'package:app_riverpod/detail_transaction/route/detail_transaction_input_output.dart';
 import 'package:app_riverpod/home/route/home_route.dart';
 import 'package:app_riverpod/home/state/home_data.dart';
+import 'package:app_riverpod/submission/submssion_1/route/suhmission_1_input_output.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -34,6 +35,14 @@ class HomeNotifier extends _$HomeNotifier {
   Future<void> onTapNavigate(BuildContext context, String prospectId) async {
     final input = DetailTransactionInput(prospectId: prospectId); 
     final result = await ref.read(homeRouteProvider).navigateToDetailTransaction(context, input);
+    if (result != null) {
+      ref.read(homeNotifierProvider.notifier).onUpdateData(result.result);
+    }
+  }
+
+  Future<void> onTapNavigateSubmission(BuildContext context, String customerId) async {
+    final input = Submission1Input(customerId: customerId); 
+    final result = await ref.read(homeRouteProvider).navigatetoSubmission(context, input);
     if (result != null) {
       ref.read(homeNotifierProvider.notifier).onUpdateData(result.result);
     }

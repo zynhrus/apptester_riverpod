@@ -3,6 +3,8 @@ import 'package:app_riverpod/detail_transaction/route/detail_transaction_input_o
 import 'package:app_riverpod/detail_transaction/route/detail_transaction_route.dart';
 import 'package:app_riverpod/home/home_screen.dart';
 import 'package:app_riverpod/home/route/home_input_output.dart';
+import 'package:app_riverpod/submission/submssion_1/route/submission_1_route.dart';
+import 'package:app_riverpod/submission/submssion_1/route/suhmission_1_input_output.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -35,6 +37,7 @@ class HomeRoute extends BaseRoute<Null, HomeOutput> {
       routes: [
         // List of screen to navigate
         ref.read(detailTransactionRouteProvider).route(),
+        ref.read(submission1RouteProvider).route(),
         // ref.read(profileRouteProvider).route(),
         // ....
         // ref.read(profileRouteProvider).route(),
@@ -47,9 +50,9 @@ class HomeRoute extends BaseRoute<Null, HomeOutput> {
   Future<DetailTransactionOutput?> navigateToDetailTransaction(BuildContext context, DetailTransactionInput input) async {
     return ref.read(detailTransactionRouteProvider).push(context, input);
   }
-  // Future<ProfileOutput?> navigatetoProfile(BuildContext context, ProfileInput input) async {
-  //   return ref.read(profileRouteProvider).navigate(context, input);
-  // }
+  Future<Submission1Output?> navigatetoSubmission(BuildContext context, Submission1Input input) async {
+    return ref.read(submission1RouteProvider).push(context, input);
+  }
   // ....
   // Future<ProfileOutput?> navigatetoProfile(BuildContext context, ProfileInput input) async {
   //   return ref.read(profileRouteProvider).navigate(context, input);

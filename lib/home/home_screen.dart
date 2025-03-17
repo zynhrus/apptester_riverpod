@@ -58,7 +58,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     event.onTapNavigate(context, "NWG-1212121212");
                   },
                   child: const Text('Push to Detail Transaction'),
-                ) 
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    event.onTapNavigateSubmission(context, "sugeng123");
+                  },
+                  child: const Text('Push to Submission'),
+                ),
               ],
             ),
             Visibility(
