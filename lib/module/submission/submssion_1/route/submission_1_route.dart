@@ -32,10 +32,6 @@ class Submission1Route extends BaseRoute<Submission1Input, Submission1Output> {
       builder: (context, state) {
         return Submission1Screen(input: state.extra as Submission1Input);
       },
-      routes: [
-        ref.read(submission2RouteProvider).route(),
-        ref.read(submission3RouteProvider).route(),
-      ]
     );
   }
 

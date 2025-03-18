@@ -34,14 +34,6 @@ class HomeRoute extends BaseRoute<Null, HomeOutput> {
       builder: (context, state) {
         return const HomeScreen();
       },
-      routes: [
-        // List of screen to navigate
-        ref.read(detailTransactionRouteProvider).route(),
-        ref.read(submission1RouteProvider).route(),
-        // ref.read(profileRouteProvider).route(),
-        // ....
-        // ref.read(profileRouteProvider).route(),
-      ]
     );
   }
 
