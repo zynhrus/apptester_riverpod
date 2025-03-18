@@ -22,14 +22,14 @@ void main() {
   });
 
   testNotifier(
-    'Initial state should be HomeState.initial()',
+    'PROVIDER Initial state SHOULD be empty',
     provider: homeNotifierProvider,
     act: (notifier) => notifier.build(),
     expect: () => [],
   );
 
   testNotifier(
-    'onInitial should fetch home data and update state',
+    'ACT onInitial SHOULD fetch home data and update state',
     provider: homeNotifierProvider,
     act: (notifier) => notifier.onInitial(),
     expect: () => [
@@ -68,7 +68,7 @@ void main() {
   );
 
   testNotifier(
-    'onRefresh should fetch home data with notification count 5',
+    'ACT onRefresh SHOULD fetch home data with notification count 5',
     provider: homeNotifierProvider,
     act: (notifier) => notifier.onRefresh(),
     expect: () => [
@@ -89,7 +89,7 @@ void main() {
   );
 
   testNotifier(
-    'onUpdateData should update username',
+    'ACT onUpdateData SHOULD update username',
     provider: homeNotifierProvider,
     act: (notifier) => notifier.onUpdateData(usernameTest),
     expect: () => [
@@ -111,7 +111,7 @@ void main() {
 
   group('Navigation tests', () {
     testNotifier(
-      'onTapNavigate should navigate to detail transaction and update data if result is not null',
+      'ACT onTapNavigate SHOULD navigate to detail transaction and update data if result is not null',
       provider: homeNotifierProvider,
       overrides: [
         homeRouteProvider.overrideWith((ref) => mockHomeRoute),
@@ -153,7 +153,7 @@ void main() {
     );
 
     testNotifier(
-      'onTapNavigate should not update data if result is null',
+      'ACT onTapNavigate SHOULD not update data if result is null',
       provider: homeNotifierProvider,
       overrides: [
         homeRouteProvider.overrideWith((ref) => mockHomeRoute),
@@ -175,7 +175,7 @@ void main() {
     );
 
     testNotifier(
-      'onTapNavigateSubmission should navigate to submission and update data if result is not null',
+      'ACT onTapNavigateSubmission SHOULD navigate to submission and update data if result is not null',
       provider: homeNotifierProvider,
       overrides: [
         homeRouteProvider.overrideWith((ref) => mockHomeRoute),
