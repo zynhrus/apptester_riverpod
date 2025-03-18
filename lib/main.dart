@@ -1,4 +1,4 @@
-import 'package:app_riverpod/core/router/route_manager.dart';
+import 'package:app_riverpod/router/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

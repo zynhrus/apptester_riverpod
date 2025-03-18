@@ -1,5 +1,5 @@
 import 'package:app_riverpod/core/state/base_state.dart';
-import 'package:app_riverpod/home/notifier/home_notifier.dart';
+import 'package:app_riverpod/module/home/notifier/home_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

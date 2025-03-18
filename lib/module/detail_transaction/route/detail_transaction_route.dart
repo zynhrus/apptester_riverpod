@@ -1,6 +1,6 @@
 import 'package:app_riverpod/core/router/base_route.dart';
-import 'package:app_riverpod/detail_transaction/detail_transaction_screen.dart';
-import 'package:app_riverpod/detail_transaction/route/detail_transaction_input_output.dart';
+import 'package:app_riverpod/module/detail_transaction/detail_transaction_screen.dart';
+import 'package:app_riverpod/module/detail_transaction/route/detail_transaction_input_output.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

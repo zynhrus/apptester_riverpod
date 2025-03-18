@@ -1,6 +1,6 @@
 import 'package:app_riverpod/core/router/base_route.dart';
-import 'package:app_riverpod/submission/submission_3/route/suhmission_3_input_output.dart';
-import 'package:app_riverpod/submission/submission_3/submission_3_screen.dart';
+import 'package:app_riverpod/module/submission/submission_3/route/suhmission_3_input_output.dart';
+import 'package:app_riverpod/module/submission/submission_3/submission_3_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

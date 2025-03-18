@@ -1,8 +1,8 @@
-import 'package:app_riverpod/submission/common/appbar.dart';
-import 'package:app_riverpod/submission/submission_2/route/submission_2_route.dart';
-import 'package:app_riverpod/submission/submission_2/route/suhmission_2_input_output.dart';
-import 'package:app_riverpod/submission/submission_3/route/suhmission_3_input_output.dart';
-import 'package:app_riverpod/submission/submssion_1/route/suhmission_1_input_output.dart';
+import 'package:app_riverpod/module/submission/common/appbar.dart';
+import 'package:app_riverpod/module/submission/submission_2/route/submission_2_route.dart';
+import 'package:app_riverpod/module/submission/submission_2/route/suhmission_2_input_output.dart';
+import 'package:app_riverpod/module/submission/submission_3/route/suhmission_3_input_output.dart';
+import 'package:app_riverpod/module/submission/submssion_1/route/suhmission_1_input_output.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

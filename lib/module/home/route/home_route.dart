@@ -1,10 +1,10 @@
 import 'package:app_riverpod/core/router/base_route.dart';
-import 'package:app_riverpod/detail_transaction/route/detail_transaction_input_output.dart';
-import 'package:app_riverpod/detail_transaction/route/detail_transaction_route.dart';
-import 'package:app_riverpod/home/home_screen.dart';
-import 'package:app_riverpod/home/route/home_input_output.dart';
-import 'package:app_riverpod/submission/submssion_1/route/submission_1_route.dart';
-import 'package:app_riverpod/submission/submssion_1/route/suhmission_1_input_output.dart';
+import 'package:app_riverpod/module/detail_transaction/route/detail_transaction_input_output.dart';
+import 'package:app_riverpod/module/detail_transaction/route/detail_transaction_route.dart';
+import 'package:app_riverpod/module/home/home_screen.dart';
+import 'package:app_riverpod/module/home/route/home_input_output.dart';
+import 'package:app_riverpod/module/submission/submssion_1/route/submission_1_route.dart';
+import 'package:app_riverpod/module/submission/submssion_1/route/suhmission_1_input_output.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

@@ -1,8 +1,8 @@
 import 'package:app_riverpod/core/state/base_state.dart';
-import 'package:app_riverpod/detail_transaction/route/detail_transaction_input_output.dart';
-import 'package:app_riverpod/home/route/home_route.dart';
-import 'package:app_riverpod/home/state/home_data.dart';
-import 'package:app_riverpod/submission/submssion_1/route/suhmission_1_input_output.dart';
+import 'package:app_riverpod/module/detail_transaction/route/detail_transaction_input_output.dart';
+import 'package:app_riverpod/module/home/route/home_route.dart';
+import 'package:app_riverpod/module/home/state/home_data.dart';
+import 'package:app_riverpod/module/submission/submssion_1/route/suhmission_1_input_output.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
