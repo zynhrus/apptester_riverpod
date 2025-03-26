@@ -1,10 +1,8 @@
-import 'package:app_riverpod/module/submission/common/appbar.dart';
-import 'package:app_riverpod/module/submission/submission_2/route/submission_2_route.dart';
-import 'package:app_riverpod/module/submission/submission_2/route/suhmission_2_input_output.dart';
-import 'package:app_riverpod/module/submission/submission_3/route/suhmission_3_input_output.dart';
+import 'package:app_riverpod/core/state/base_state.dart';
+import 'package:app_riverpod/module/submission/submission_2/notifier/submission_2_notifier.dart';
+import 'package:app_riverpod/module/submission/submission_2/route/suhmission_2_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class Submission2Screen extends ConsumerStatefulWidget {
   const Submission2Screen({
@@ -19,32 +17,111 @@ class Submission2Screen extends ConsumerStatefulWidget {
 }
 
 class _Submission2ScreenState extends ConsumerState<Submission2Screen> {
+  // Declare notifier as global variable when it is used in all over class
+  late final Submission2Notifier submission2Notifier;
+
+  @override
+  void initState() {
+    // Initialize notifier using screen input
+    submission2Notifier = ref.read(submission2NotifierProvider.notifier);
+    Future.microtask(() => submission2Notifier.onInitialized(widget.input));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const SubmissionAppbar() as PreferredSizeWidget,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text("Submission 2"),
-          Text(widget.input.formData),
-          ElevatedButton(
-            onPressed: () {
-              context.pop(const Submission2Output(result: "navigate back from submission 2"));
-            },
-            child: const Text('back'),
-          ),
+    final submission2State = ref.watch(submission2NotifierProvider);
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        renderContent(),
+        Visibility(
+          visible: submission2State.stateStatus == StateStatus.loading,
+          child: const Center(child: CircularProgressIndicator()),
+        ),
+      ],
+    );
+  }
 
-          ElevatedButton(
-            onPressed: () {
-              ref.read(submission2RouteProvider).navigateToSubmission3(context, const Submission3Input(formData: "Form Data from submission 2"));
+  Widget renderContent() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        renderCustomerAddress(),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: 100,
+          height: 50,
+          child: TextField(
+            decoration: const InputDecoration(
+              label: Text("Name"),
+              hintText: "Input Name",
+            ),
+            onChanged: (value) {
+              submission2Notifier.onChangedName(value);
             },
-            child: const Text('Next'),
-          )
-        ],
-      )
+          ),
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          width: 100, 
+          height: 50,
+          child: TextField(
+            decoration: const InputDecoration(
+              label: Text("Email"),
+              hintText: "Input Email",
+            ),
+            onChanged: (value) {
+              submission2Notifier.onChangedEmail(value);
+            },
+          ),
+        ),
+        const SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: () {
+            submission2Notifier.onNavigatedToSubmission3(context);
+          },
+          child: const Text('Next'),
+        ),
+        const SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: () {
+            submission2Notifier.onNavigatedBack(context);
+          },
+          child: const Text('back'),
+        ),
+      ],
+    );
+  }
+
+
+  // only rebuild when state.data change
+  Consumer renderCustomerAddress() {
+    return Consumer(
+      builder: (_, WidgetRef ref, __) {
+        final submission2State = ref.watch(submission2NotifierProvider.select((selector) => selector.data));
+        return Column(
+          children: [
+            const Text("Customer Address"),
+            const SizedBox(height: 5),
+            rowText("Customer id", submission2State.input.customerId),
+            rowText("Province", submission2State.input.province.name),
+            rowText("District", submission2State.input.district.name),
+            const Divider(),
+          ],
+        );
+      },
+    );
+  }
+
+  Row rowText(String label, String value) {
+    return Row(
+      children: [
+        Text(label),
+        const SizedBox(width: 10),
+        Text(value),
+      ],
     );
   }
 }

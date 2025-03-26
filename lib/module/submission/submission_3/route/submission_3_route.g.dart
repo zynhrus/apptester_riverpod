@@ -6,7 +6,7 @@ part of 'submission_3_route.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$submission3RouteHash() => r'6d6c4d6089e3f7912c54a6659f4ae56dd4ef3b89';
+String _$submission3RouteHash() => r'48ccc3b83def3b9f0e73d3398b692559ce277cc4';
 
 /// See also [submission3Route].
 @ProviderFor(submission3Route)

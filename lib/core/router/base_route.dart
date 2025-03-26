@@ -10,7 +10,7 @@ abstract class BaseRoute<T, R> {
   final String name;
   final String path;
   
-  Future<R?> push(BuildContext context, T input) async {
+  Future<R?> push(BuildContext context, {T? input}) async {
     final result = await context.pushNamed<R>(
       name,
       extra: input,
@@ -18,10 +18,14 @@ abstract class BaseRoute<T, R> {
     return result;
   }
 
-  Future<void> go(BuildContext context, T input) async {
+  void go(BuildContext context, {T? input}) async {
     context.goNamed(
       name,
       extra: input,
     );
+  }
+
+  void pop (BuildContext context, {R? output}) {
+    context.pop(output);
   }
 }

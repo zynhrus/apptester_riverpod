@@ -8,7 +8,7 @@ class HomeState extends BaseState<HomeData, HomeState> {
   });
 
   factory HomeState.initial() => HomeState(
-    stateStatus: StateStatus.initialLoading,
+    stateStatus: StateStatus.loading,
     data: HomeData.empty(),
   );
 
