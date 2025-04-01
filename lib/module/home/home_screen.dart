@@ -55,12 +55,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    event.onTapNavigate(context, "NWG-1212121212");
-                  },
-                  child: const Text('Push to Detail Transaction'),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
                     event.onTapNavigateSubmission(context, "sugeng123");
                   },
                   child: const Text('Push to Submission'),
@@ -68,7 +62,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ],
             ),
             Visibility(
-              visible: state.stateStatus == StateStatus.initialLoading,
+              visible: state.stateStatus == StateStatus.loading,
               child: const Center(
                 child: CircularProgressIndicator(),
               ),

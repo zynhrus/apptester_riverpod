@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum StateStatus { initial, initialLoading, loadMore, success, empty, failed }
+enum StateStatus { initial, loading, loadMore, success, empty, failed }
 
 abstract class BaseState<T, R> extends Equatable {
   const BaseState({
@@ -13,7 +13,7 @@ abstract class BaseState<T, R> extends Equatable {
   final T data;
   final String? failure;
 
-  R loading() => copyWith(stateStatus: StateStatus.initialLoading);
+  R loading() => copyWith(stateStatus: StateStatus.loading);
 
   R success({
     required T data,

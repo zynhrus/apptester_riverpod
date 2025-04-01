@@ -43,6 +43,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# FVM Version Cache
+.fvm/
+.vscode/settings.json
+
 # Generated Files
 *.mocks.dart
 *.g.dart

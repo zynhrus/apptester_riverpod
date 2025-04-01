@@ -1,8 +1,7 @@
 import 'package:app_riverpod/core/state/base_state.dart';
-import 'package:app_riverpod/module/detail_transaction/route/detail_transaction_input_output.dart';
 import 'package:app_riverpod/module/home/route/home_route.dart';
 import 'package:app_riverpod/module/home/state/home_data.dart';
-import 'package:app_riverpod/module/submission/submssion_1/route/suhmission_1_input_output.dart';
+import 'package:app_riverpod/module/submission/submssion_1/route/suhmission_1_input.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -30,14 +29,6 @@ class HomeNotifier extends _$HomeNotifier {
     state = state.update(
       state.data.copyWith(user: state.data.user.copyWith(username: username))
     );
-  }
-
-  Future<void> onTapNavigate(BuildContext context, String prospectId) async {
-    final input = DetailTransactionInput(prospectId: prospectId); 
-    final result = await ref.read(homeRouteProvider).navigateToDetailTransaction(context, input);
-    if (result != null) {
-      ref.read(homeNotifierProvider.notifier).onUpdateData(result.result);
-    }
   }
 
   Future<void> onTapNavigateSubmission(BuildContext context, String customerId) async {
