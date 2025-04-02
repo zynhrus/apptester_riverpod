@@ -1,10 +1,9 @@
 import 'package:app_riverpod/core/state/base_state.dart';
-import 'package:app_riverpod/module/submission/common/district/district_dropdown.dart';
-import 'package:app_riverpod/module/submission/common/province/province_dropdown.dart';
 import 'package:app_riverpod/module/submission/submssion_1/notifier/submission_1_notifier.dart';
 import 'package:app_riverpod/module/submission/submssion_1/route/suhmission_1_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fmf_dsl/fl_form_framework/fl_form_framework.dart';
 
 class Submission1Screen extends ConsumerStatefulWidget {
   const Submission1Screen({
@@ -19,6 +18,7 @@ class Submission1Screen extends ConsumerStatefulWidget {
 }
 
 class _Submission1ScreenState extends ConsumerState<Submission1Screen> {
+  final formKeySubmit = GlobalKey<FormState>();
   // Declare notifier as global variable when it is used in all over class
   late final Submission1Notifier submission1Notifier;
 
@@ -28,6 +28,13 @@ class _Submission1ScreenState extends ConsumerState<Submission1Screen> {
     submission1Notifier = ref.read(submission1NotifierProvider.notifier);
     Future.microtask(() => submission1Notifier.onInitialized(widget.input.customerId));
     super.initState();
+  }
+
+  @override
+  dispose() {
+    submission1Notifier.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -47,37 +54,44 @@ class _Submission1ScreenState extends ConsumerState<Submission1Screen> {
   }
 
   Widget renderContent() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        renderCustomerId(),
-        const SizedBox(height: 20),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          renderCustomerId(),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            child: FLFormRenderer(
+              formKey: formKeySubmit,
+              factory: submission1Notifier.formFactory,
+              property: FLFormListProperty(
+                scrollPhysics: const NeverScrollableScrollPhysics(),
+              ),
+            ),
+          ),
 
-        // Province Dropdown Widget has it's own state & notifier inside it's class
-        const ProvinceDropdown(),
-        const SizedBox(height: 10),
-
-        // District Dropdown Widget has it's own state & notifier inside it's class
-        const DistrictDropdown(),
-        const SizedBox(height: 10),
-
-        ElevatedButton(
-          onPressed: () {
-            // Navigate using notifier method
-            submission1Notifier.onNavigatedToSubmission2(context);
-          },
-          child: const Text('Next'),
-        ),
-        const SizedBox(height: 10),
-        ElevatedButton(
-          onPressed: () {
-            // Navigate using notifier method
-            submission1Notifier.onNavigatedBack(context);
-          },
-          child: const Text('Close'),
-        ),
-      ],
+          ElevatedButton(
+            onPressed: () {
+              // Navigate using notifier method
+              submission1Notifier.onNavigatedToSubmission2(
+                context,
+                formKeySubmit: formKeySubmit,
+              );
+            },
+            child: const Text('Next'),
+          ),
+          const SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              // Navigate using notifier method
+              submission1Notifier.onNavigatedBack(context);
+            },
+            child: const Text('Close'),
+          ),
+        ],
+      ),
     );
   }
 

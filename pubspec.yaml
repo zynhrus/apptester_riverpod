@@ -40,6 +40,8 @@ dependencies:
   equatable: ^2.0.7
   go_router: ^14.8.1
   logger: ^2.5.0
+  fmf_dsl:
+    path: ../flutter-dsl
 
 dev_dependencies:
   flutter_test:
