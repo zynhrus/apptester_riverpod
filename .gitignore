@@ -43,6 +43,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Desktop
+/macos/
+/windows/
+
 # FVM Version Cache
 .fvm/
 .vscode/settings.json

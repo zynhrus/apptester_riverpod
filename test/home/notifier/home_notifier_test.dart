@@ -1,7 +1,7 @@
-import 'package:app_riverpod/module/detail_transaction/route/detail_transaction_input_output.dart';
 import 'package:app_riverpod/module/home/notifier/home_notifier.dart';
 import 'package:app_riverpod/module/home/route/home_route.dart';
-import 'package:app_riverpod/module/submission/submssion_1/route/suhmission_1_input_output.dart';
+import 'package:app_riverpod/module/submission/submssion_1/route/suhmission_1_input.dart';
+import 'package:app_riverpod/module/submission/submssion_1/route/suhmission_1_output.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -110,70 +110,6 @@ void main() {
   );
 
   group('Navigation tests', () {
-    testNotifier(
-      'ACT onTapNavigate SHOULD navigate to detail transaction and update data if result is not null',
-      provider: homeNotifierProvider,
-      overrides: [
-        homeRouteProvider.overrideWith((ref) => mockHomeRoute),
-      ],
-      setUp: () async {
-        when(mockHomeRoute.navigateToDetailTransaction(
-          mockContext,
-          any,
-        )).thenAnswer(
-            (_) async => const DetailTransactionOutput(result: usernameTest));
-      },
-      act: (notifier) => notifier.onTapNavigate(mockContext, prospectIdTest),
-      wait: const Duration(seconds: 1),
-      expect: () => [
-        isA<HomeState>().having(
-          (state) => state.stateStatus,
-          descriptionStatus,
-          statusInitialLoading,
-        ),
-        isA<HomeState>()
-            .having((state) => state.stateStatus, descriptionStatus,
-                statusInitialSuccess)
-            .having(
-              (state) => state.data.user.username,
-              descriptionUsername,
-              usernameTest,
-            ),
-      ],
-      verify: (notifier) {
-        verify(mockHomeRoute.navigateToDetailTransaction(
-          mockContext,
-          argThat(isA<DetailTransactionInput>().having(
-            (input) => input.prospectId,
-            descriptionProspectId,
-            prospectIdTest,
-          )),
-        )).called(1);
-      },
-    );
-
-    testNotifier(
-      'ACT onTapNavigate SHOULD not update data if result is null',
-      provider: homeNotifierProvider,
-      overrides: [
-        homeRouteProvider.overrideWith((ref) => mockHomeRoute),
-      ],
-      setUp: () async {
-        when(mockHomeRoute.navigateToDetailTransaction(
-          mockContext,
-          any,
-        )).thenAnswer((_) async => null);
-      },
-      act: (notifier) => notifier.onTapNavigate(mockContext, prospectIdTest),
-      expect: () => [],
-      verify: (container) {
-        verify(mockHomeRoute.navigateToDetailTransaction(
-          mockContext,
-          any,
-        )).called(1);
-      },
-    );
-
     testNotifier(
       'ACT onTapNavigateSubmission SHOULD navigate to submission and update data if result is not null',
       provider: homeNotifierProvider,

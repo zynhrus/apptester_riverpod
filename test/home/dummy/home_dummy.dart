@@ -13,7 +13,7 @@ const descriptionProspectId = "prospect_id";
 
 // Dummy Data
 const statusInitial = StateStatus.initial;
-const statusInitialLoading = StateStatus.initialLoading;
+const statusInitialLoading = StateStatus.loading;
 const statusInitialSuccess = StateStatus.success;
 
 final homeDataEmpty = HomeData.empty();
