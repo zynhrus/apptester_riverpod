@@ -74,11 +74,11 @@ class _Submission1ScreenState extends ConsumerState<Submission1Screen> {
 
           ElevatedButton(
             onPressed: () {
-              // Navigate using notifier method
-              submission1Notifier.onNavigatedToSubmission2(
-                context,
-                formKeySubmit: formKeySubmit,
-              );
+              if (!formKeySubmit.currentState!.validate()) {
+                return;
+              }
+
+              submission1Notifier.onNavigatedToSubmission2(context);
             },
             child: const Text('Next'),
           ),

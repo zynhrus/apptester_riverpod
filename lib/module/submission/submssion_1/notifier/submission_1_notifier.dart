@@ -2,8 +2,10 @@ import 'package:app_riverpod/core/extensions/date_extension.dart';
 import 'package:app_riverpod/core/state/base_state.dart';
 import 'package:app_riverpod/module/submission/common/district/district_dropdown.dart';
 import 'package:app_riverpod/module/submission/common/district/notifier/district_notifier.dart';
+import 'package:app_riverpod/module/submission/common/district/state/district_state.dart';
 import 'package:app_riverpod/module/submission/common/province/notifier/province_notifier.dart';
 import 'package:app_riverpod/module/submission/common/province/province_dropdown.dart';
+import 'package:app_riverpod/module/submission/common/province/state/province_state.dart';
 import 'package:app_riverpod/module/submission/common/stepper/stepper_notifier.dart';
 import 'package:app_riverpod/module/submission/submission_2/route/suhmission_2_input.dart';
 import 'package:app_riverpod/module/submission/submission_2/route/suhmission_2_output.dart';
@@ -26,7 +28,10 @@ part 'submission_1_notifier.g.dart';
 class Submission1Notifier extends _$Submission1Notifier {
   // If needed, you can use other notifiers inside your notifier.
   // Declare notifier as global variable when it is used in all over class
-  late final StepperNotifier _stepperNotifier;
+  late final StepperNotifier _stepperNotifier =
+      ref.read(stepperNotifierProvider.notifier);
+  late ProvinceState provinceState = ref.read(provinceNotifierProvider);
+  late DistrictState districtState = ref.read(districtNotifierProvider);
 
   final FormFactory formFactory = FormFactory();
 
@@ -46,7 +51,6 @@ class Submission1Notifier extends _$Submission1Notifier {
 
   @override
   Submission1State build() {
-    _stepperNotifier = ref.read(stepperNotifierProvider.notifier);
     return Submission1State.initial();
   }
 
@@ -70,24 +74,22 @@ class Submission1Notifier extends _$Submission1Notifier {
     state = state.success(data: customerId);
   }
 
-  void onNavigatedBack(BuildContext context){
-    ref.read(submission1RouteProvider).pop(context, output: const Submission1Output(result: "navigate back from submission"));
+  void onNavigatedBack(BuildContext context) {
+    ref.read(submission1RouteProvider).pop(context,
+        output:
+            const Submission1Output(result: "navigate back from submission"));
   }
 
   Future<Submission2Output?> onNavigatedToSubmission2(
-    BuildContext context, {
-    required GlobalKey<FormState> formKeySubmit,
-  }) async {
-    if (formKeySubmit.currentState!.validate()) {
-      _validateDate();
-    }
-
-    // Only declare notifiers as local variable when it is used in only one method
-    final provinceState = ref.read(provinceNotifierProvider);
-    final districtState = ref.read(districtNotifierProvider);
+    BuildContext context,
+  ) async {
+    final isValidate = await _validateDate();
 
     if (provinceState.data.selectedProvince == null ||
-        districtState.data.selectedDistrict == null) return null;
+        districtState.data.selectedDistrict == null ||
+        !isValidate) {
+      return null;
+    }
 
     state = state.loading();
     await Future.delayed(const Duration(seconds: 1));
@@ -105,10 +107,13 @@ class Submission1Notifier extends _$Submission1Notifier {
         .navigateToSubmission2(context, input);
   }
 
-  void _validateDate() {
-    final startMonth = int.parse(startMonthController.text.toMonthNumber());
+  Future<bool> _validateDate() async {
+    final startMonthText = startMonthController.text.toMonthNumber();
+    final endMonthText = endMonthController.text.toMonthNumber();
+
+    final startMonth = int.parse(startMonthText);
     final startYear = int.parse(startYearController.text);
-    final endMonth = int.parse(endMonthController.text.toMonthNumber());
+    final endMonth = int.parse(endMonthText);
     final endYear = int.parse(endYearController.text);
 
     final startDate = DateTime(startYear, startMonth);
@@ -116,12 +121,11 @@ class Submission1Notifier extends _$Submission1Notifier {
 
     if (startDate.isAfter(endDate)) {
       _setVisibilityTillError(true);
-
-      return;
+      return false;
     }
 
     _setVisibilityTillError(false);
-    state = state.copyWith();
+    return true;
   }
 
   // Future<Submission3Output?> onNavigatedToSubmission3(BuildContext context) async {
