@@ -1,8 +1,6 @@
 import 'package:app_riverpod/core/state/base_state.dart';
-import 'package:app_riverpod/module/submission/common/district/notifier/district_notifier.dart';
 import 'package:app_riverpod/module/submission/common/district/state/district_data.dart';
 import 'package:app_riverpod/module/submission/common/district/state/district_state.dart';
-import 'package:app_riverpod/module/submission/common/province/notifier/province_notifier.dart';
 import 'package:app_riverpod/module/submission/common/province/state/province_data.dart';
 import 'package:app_riverpod/module/submission/common/province/state/province_state.dart';
 import 'package:app_riverpod/module/submission/common/stepper/stepper_notifier.dart';
